@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pedido - Natursopas</title>
+  <style>
+    :root {
+      --primary: #FF6B6B;
+      --primary-light: #FF8E8E;
+      --secondary: #4ECDC4;
+      --accent: #FFE66D;
+      --dark: #292F36;
+      --light: #F7FFF7;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+      --gradient-accent: linear-gradient(135deg, var(--accent), #FFB347);
+    }
+    
+    body {
+      font-family: 'Nunito', 'Segoe UI', sans-serif;
+      padding: 0;
+      margin: 0;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      background-image: radial-gradient(circle at 10% 20%, rgba(255, 235, 205, 0.2) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(173, 216, 230, 0.2) 0%, transparent 20%);
+    }
+    
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    
+    h2 {
+      color: var(--primary);
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.05);
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    
+    h2:after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: var(--gradient);
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+    
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.15);
+      margin-bottom: 30px;
+      border: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    form:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;  /* Reducido de 8px a 6px */
+      height: 100%;
+      background: var(--gradient);
+    }
+    
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1rem;
+    }
+    
+    input, select, textarea {
+      width: calc(100% - 36px); /* Ajustado para compensar el borde */
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      background-color: #fafafa;
+      font-family: 'Nunito', sans-serif;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+      background-color: white;
+    }
+    
+    #resumen {
+      background: rgba(78, 205, 196, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 30px;
+      border: 2px dashed rgba(78, 205, 196, 0.3);
+      position: relative;
+    }
+    
+    #resumen h3 {
+      margin-top: 0;
+      color: var(--secondary);
+      font-size: 1.5rem;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+    }
+    
+    .btn-enviar {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 18px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      width: 100%;
+      margin-top: 20px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-enviar:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+    }
+    
+    .btn-enviar:active {
+      transform: translateY(1px);
+    }
+    
+    .btn-enviar:after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.2);
+      transform: rotate(30deg);
+      transition: all 0.3s;
+    }
+    
+    .btn-enviar:hover:after {
+      left: 100%;
+    }
+    
+    #recibo {
+      margin-top: 30px;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.15);
+      display: none;
+      text-align: center;
+      border: none;
+    }
+    
+    #recibo h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .btn-eliminar {
+      margin-left: 10px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(255, 107, 107, 0.3);
+    }
+    
+    .btn-eliminar:hover {
+      background-color: #ff5252;
+      transform: scale(1.1);
+    }
+    
+    #pedidoResumen li {
+      padding: 12px 0;
+      border-bottom: 2px dotted rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    
+    #pedidoResumen li:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    
+    #pedidoResumen li:last-child {
+      border-bottom: none;
+    }
+    
+    .pago-qr {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      margin-top: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.15);
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pago-qr:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;  /* Reducido de 8px a 6px */
+      height: 100%;
+      background: var(--gradient-accent);
+    }
+    
+    .pago-qr h2 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+    
+    .pago-qr img {
+      border: 12px solid white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      margin: 20px 0;
+      transition: all 0.3s;
+    }
+    
+    .pago-qr img:hover {
+      transform: scale(1.03);
+    }
+    
+    .pago-qr button {
+      background: var(--gradient-accent);
+      color: var(--dark);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 15px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 230, 109, 0.3);
+      font-size: 1rem;
+    }
+    
+    .pago-qr button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 230, 109, 0.4);
+    }
+    
+    .pago-qr button:active {
+      transform: translateY(1px);
+    }
+    
+    #totalConDomicilio {
+      font-size: 1.4rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+      
+      form, .pago-qr {
+        padding: 25px;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      input, select, textarea {
+        padding: 12px 15px;
+        width: calc(100% - 30px); /* Ajuste para móviles */
+      }
+    }
+    
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    form, .pago-qr {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>🍲 Formulario de Pedido Natursopas 🥗</h2>
+
+    <form id="formularioPedido">
+      <label for="nombre">Nombre completo:</label>
+      <input type="text" id="nombre" required placeholder="Ej: María González">
+
+      <label for="direccion">Dirección de entrega:</label>
+      <input type="text" id="direccion" required placeholder="Ej: Cra 45 #12-30, Apto 301">
+
+      <label for="telefono">Teléfono de contacto:</label>
+      <input type="text" id="telefono" required placeholder="Ej: 3001234567">
+
+      <label for="pago">Método de pago:</label>
+      <select id="pago" required>
+        <option value="">Selecciona tu método de pago</option>
+        <option value="Efectivo">💵 Efectivo</option>
+        <option value="Nequi">📱 Nequi</option>
+        <option value="Transferencia">🏦 Transferencia</option>
+      </select>
+
+      <label for="comentarios">Comentarios adicionales:</label>
+      <textarea id="comentarios" rows="3" placeholder="Alergias, instrucciones especiales, etc."></textarea>
+
+      <div id="resumen">
+        <h3>📋 Resumen de tu pedido saludable</h3>
+        <ul id="pedidoResumen"></ul>
+        <p style="text-align: right; font-weight: 700; margin-top: 25px;">
+          <span style="font-size: 1.1rem;">Total a pagar:</span> <span id="totalConDomicilio">$0</span>
+        </p>
+      </div>
+
+      <button type="submit" class="btn-enviar">
+        🚀 Confirmar mi pedido saludable
+      </button>
+    </form>
+
+    <section class="pago-qr">
+      <h2>💳 Pago con Nequi</h2>
+      <p>Escanea este código QR con tu app de Nequi para realizar el pago de forma rápida y segura</p>
+      <img src="qr-nequi.png" alt="Código QR Nequi" style="width: 250px;">
+      <p style="font-size: 1.1rem; margin-top: 15px;"><strong>📲 Número de Nequi:</strong> 3233670402</p>
+      <button onclick="alert('¡Gracias! Hemos registrado tu pago y pronto recibirás tu pedido saludable.')">✅ Ya realicé mi pago</button>
+    </section>
+
+    <div id="recibo">
+      <div id="detalleRecibo"></div>
+    </div>
+  </div>
+
+  <script>
+    const resumen = document.getElementById("pedidoResumen");
+    const totalConDomicilio = document.getElementById("totalConDomicilio");
+    const formulario = document.getElementById("formularioPedido");
+    const recibo = document.getElementById("recibo");
+    const detalleRecibo = document.getElementById("detalleRecibo");
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    let total = 0;
+
+    function renderizarResumen() {
+      resumen.innerHTML = "";
+      total = 0;
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement("li");
+
+        const detalles = item.detalles ? `<br><small style="color: #555; font-size: 0.9rem; font-style: italic;">🍃 Ingredientes: ${item.detalles}</small>` : "";
+
+        li.innerHTML = `
+          <div>
+            <span style="font-weight: 700; color: #FF6B6B;">${item.nombre}</span> 
+            <span style="color: #4ECDC4;">x${item.cantidad}</span> - 
+            <span style="font-weight: 700;">$${item.total.toLocaleString("es-CO")}</span>
+            ${detalles}
+          </div>
+          <button class="btn-eliminar" onclick="eliminarProducto(${index})">🗑️</button>
+        `;
+
+        resumen.appendChild(li);
+        total += item.total;
+      });
+
+      totalConDomicilio.textContent = "$" + total.toLocaleString("es-CO");
+    }
+
+    function eliminarProducto(index) {
+      if (confirm("¿Estás seguro de eliminar este producto de tu pedido?")) {
+        carrito.splice(index, 1);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        renderizarResumen();
+      }
+    }
+
+    renderizarResumen();
+
+    formulario.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value;
+      const direccion = document.getElementById("direccion").value;
+      const telefono = document.getElementById("telefono").value;
+      const pago = document.getElementById("pago").value;
+      const comentarios = document.getElementById("comentarios").value;
+
+      const resumenPedido = carrito.map(item => {
+        return `${item.nombre} x${item.cantidad}${item.detalles ? " (" + item.detalles + ")" : ""}`;
+      }).join(", ");
+
+      const mensaje = `
+🍏 *¡NUEVO PEDIDO NATURSOPAS!* 🍓
+👤 *Nombre:* ${nombre}
+🏠 *Dirección:* ${direccion}
+📱 *Teléfono:* ${telefono}
+💳 *Método de pago:* ${pago}
+📝 *Comentarios:* ${comentarios || "Ninguno"}
+      
+🛒 *DETALLE DEL PEDIDO:*
+${carrito.map((item, i) => `${i+1}. ${item.nombre} x${item.cantidad}${item.detalles ? " - " + item.detalles : ""}`).join("\n")}
+
+💰 *TOTAL A PAGAR:* $${total.toLocaleString("es-CO")}
+      `.trim();
+
+      const numeroAdmin = "573233670402";
+      const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroAdmin}&text=${encodeURIComponent(mensaje)}`;
+      const adminWindow = window.open(urlWhatsApp, "_blank");
+      if (adminWindow) adminWindow.blur();
+
+      formulario.style.display = "none";
+      recibo.style.display = "block";
+
+      detalleRecibo.innerHTML = `
+        <h2 style="color: #FF6B6B; font-size: 2rem;">🎉 ¡Pedido Confirmado!</h2>
+        <div style="background: rgba(78, 205, 196, 0.1); padding: 25px; border-radius: 15px; margin: 25px 0; border: 2px dashed #4ECDC4;">
+          <p><span style="font-weight: 700; color: #4ECDC4;">👤 Nombre:</span> ${nombre}</p>
+          <p><span style="font-weight: 700; color: #4ECDC4;">🏠 Dirección:</span> ${direccion}</p>
+          <p><span style="font-weight: 700; color: #4ECDC4;">📱 Teléfono:</span> ${telefono}</p>
+          <p><span style="font-weight: 700; color: #4ECDC4;">💳 Método de pago:</span> ${pago}</p>
+          <p><span style="font-weight: 700; color: #4ECDC4;">🍽️ Pedido:</span> ${resumenPedido}</p>
+          <p style="font-weight: 800; font-size: 1.4rem; margin-top: 20px; color: #FF6B6B;">
+            💰 Total a pagar: $${total.toLocaleString("es-CO")}
+          </p>
+        </div>
+        <p style="font-size: 1.2rem; color: #292F36;">
+          ¡Gracias por elegir <span style="font-weight: 700; color: #4ECDC4;">Natursopas</span>! Tu comida saludable está en camino 🚴‍♀️
+        </p>
+        <div style="margin-top: 30px; font-size: 0.9rem; color: #666;">
+          <p>¿Tienes alguna duda? Llámanos al 3233670402</p>
+        </div>
+      `;
+
+      localStorage.removeItem("carrito");
+      localStorage.removeItem("pedidoPersonalizado");
+    });
+  </script>
+</body>
+</html>

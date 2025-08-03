@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natursopas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --secondary: #8BC34A;
+      --accent: #FFC107;
+      --dark: #2E7D32;
+      --light: #F1F8E9;
+      --text: #212121;
+      --white: #FFFFFF;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      height: 60px;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+
+    .nav-links a:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 70vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: var(--white);
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Productos Section */
+    section {
+      padding: 4rem 5%;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--dark);
+      position: relative;
+    }
+
+    h2:after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: var(--primary);
+      margin: 0.5rem auto;
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin: 2rem 0 1.5rem;
+      text-align: center;
+    }
+
+    .productos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .producto {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .producto img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .producto:hover img {
+      transform: scale(1.03);
+    }
+
+    .producto h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .producto p {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    .precio {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .producto button {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .producto button:hover {
+      background: var(--dark);
+    }
+
+    hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+      margin: 3rem 0;
+    }
+
+    /* Crear Comida Section */
+    .crear-comida {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .grupo {
+      margin-bottom: 1.5rem;
+    }
+
+    .grupo label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .grupo select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .grupo select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    }
+
+    #enviarPersonalizado {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    #enviarPersonalizado:hover {
+      background: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    /* Contacto Section */
+    #contacto {
+      text-align: center;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 3rem;
+      box-shadow: var(--shadow);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #contacto p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Botones Sociales */
+    .social-buttons {
+      position: fixed;
+      right: 20px;
+      bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 99;
+    }
+
+    .btn-social {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-social:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    .whatsapp { background: #25D366; }
+    .facebook { background: #3B5998; }
+    .instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+    .tiktok { background: #000000; }
+    .youtube { background: #FF0000; }
+
+    /* Carrito */
+    .btn-cart {
+      position: fixed;
+      right: 20px;
+      bottom: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .btn-cart:hover {
+      background: var(--dark);
+      transform: scale(1.1);
+    }
+
+    .cart {
+      position: fixed;
+      right: 20px;
+      bottom: 100px;
+      width: 350px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      z-index: 100;
+      transform: translateY(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .cart.visible {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    #cart-items {
+      list-style: none;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    #cart-items li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #cart-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: right;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .cart button {
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    #hacerPedido {
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    #hacerPedido:hover {
+      background: var(--dark);
+    }
+
+    #closeCart {
+      background: transparent;
+      border: 1px solid #ddd;
+      width: 100%;
+    }
+
+    #closeCart:hover {
+      background: #f5f5f5;
+    }
+
+    .btn-eliminar {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .btn-eliminar:hover {
+      background: #ff5252;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        margin-top: 1rem;
+      }
+
+      .nav-links li {
+        margin: 0 0.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      .productos-container {
+        grid-template-columns: 1fr;
+      }
+
+      .social-buttons {
+        bottom: 80px;
+      }
+
+      .btn-cart {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .cart {
+        width: 90%;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <!-- Hero / portada -->
+  <section id="inicio" class="hero" style="background-image: url('assets/img/hero.jpg');">
+    <div class="hero-content">
+      <h1>Bienvenidos a Natursopas</h1>
+      <p>Comida saludable, natural y deliciosa para todos los días, "Comida saludable, con el sabor casero que tanto te gusta"
+      En Natursopas cuidamos tu bienestar sin perder lo más importante: el sabor de hogar. Disfruta almuerzos tradicionales,
+      sopas naturales, jugos nutritivos y batidos verdes preparados al momento con ingredientes frescos, personalizados a tu gusto y listos para llevar.</p>
+    </div>
+  </section>
+
+  <!-- Sección de productos -->
+  <section id="productos" class="productos">
+    <h2>Nuestros Productos</h2>
+
+    <h3>Batidos Verdes ($10.000)</h3>
+    <div class="productos-container">
+      <div class="producto">
+        <img src="assets/img/detox_energetico.png" alt="Detox Energético">
+        <h4>Detox Energético</h4>
+        <p>Espinaca, pepino, manzana verde y jengibre para limpiar el cuerpo y dar energía natural.</p>
+        <p class="precio">$10.000</p>
+        <button onclick="agregarAlCarrito('Detox Energético', 10000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/batido_verde_vitalidad.png" alt="Verde Vitalidad">
+        <h4>Verde Vitalidad</h4>
+        <p>Piña, apio, limón y espinaca. Refresca, hidrata y revitaliza.</p>
+        <p class="precio">$10.000</p>
+        <button onclick="agregarAlCarrito('Verde Vitalidad', 10000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/batido_clorofila_natural.png" alt="Clorofila Natural">
+        <h4>Clorofila Natural</h4>
+        <p>Con perejil, espinaca, limón y manzana verde. Oxigena y purifica.</p>
+        <p class="precio">$10.000</p>
+        <button onclick="agregarAlCarrito('Clorofila Natural', 10000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/batido_fibra_total.png" alt="Fibra Total">
+        <h4>Fibra Total</h4>
+        <p>Manzana roja, avena, semillas de chía y papaya. Mejora la digestión.</p>
+        <p class="precio">$10.000</p>
+        <button onclick="agregarAlCarrito('Fibra Total', 10000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/batido_verde_tropical.png" alt="Verde Tropical">
+        <h4>Verde Tropical</h4>
+        <p>Piña, mango, espinaca y agua de coco. Energía tropical y frescura.</p>
+        <p class="precio">$10.000</p>
+        <button onclick="agregarAlCarrito('Verde Tropical', 10000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/batido_limpieza intestinal.png" alt="Limpieza Intestinal">
+        <h4>Limpieza Intestinal</h4>
+        <p>Ciruela, papaya, linaza y avena. Ideal para regular el tránsito intestinal.</p>
+        <p class="precio">$10.000</p>
+        <button onclick="agregarAlCarrito('Limpieza Intestinal', 10000)">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Jugos Nutritivos (desde $8.000)</h3>
+    <div class="productos-container">
+      <div class="producto">
+        <img src="assets/img/jugo_zanahoria_naranja.png" alt="Zanahoria con Naranja">
+        <h4>Zanahoria con Naranja</h4>
+        <p>Fuente de vitamina C y betacarotenos. Ideal para la piel y la vista.</p>
+        <p class="precio">$8.000</p>
+        <button onclick="agregarAlCarrito('Zanahoria con Naranja', 8000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/jugo_remolacha_manzana.png" alt="Remolacha con Manzana">
+        <h4>Remolacha con Manzana</h4>
+        <p>Aporta hierro y antioxidantes. Perfecto para subir defensas.</p>
+        <p class="precio">$8.000</p>
+        <button onclick="agregarAlCarrito('Remolacha con Manzana', 8000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/jugo_mango_pina.png" alt="Mango con Piña">
+        <h4>Mango con Piña</h4>
+        <p>Fuente natural de energía y vitamina A. Refrescante y tropical.</p>
+        <p class="precio">$8.000</p>
+        <button onclick="agregarAlCarrito('Mango con Piña', 8000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/jugo_fresa_banano.png" alt="Fresa con Banano">
+        <h4>Fresa con Banano</h4>
+        <p>Rico en potasio y antioxidantes. Delicioso y nutritivo.</p>
+        <p class="precio">$8.000</p>
+        <button onclick="agregarAlCarrito('Fresa con Banano', 8000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/jugo_sandia.png" alt="Sandía Refrescante">
+        <h4>Sandía Refrescante</h4>
+        <p>Hidratación total con sandía y un toque de hierbabuena.</p>
+        <p class="precio">$8.000</p>
+        <button onclick="agregarAlCarrito('Sandía Refrescante', 8000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/jugo_pina_coco.png" alt="Piña con Coco">
+        <h4>Piña con Coco</h4>
+        <p>Sabor caribeño con propiedades digestivas. Cremoso y delicioso.</p>
+        <p class="precio">$8.000</p>
+        <button onclick="agregarAlCarrito('Piña con Coco', 8000)">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>Almuerzos Tradicionales Colombianos</h3>
+    <div class="productos-container">
+      <div class="producto">
+        <img src="assets/img/bandeja_paisa.png" alt="Bandeja Paisa">
+        <h4>Bandeja Paisa</h4>
+        <p>Frijoles, arroz, carne molida, chicharrón, huevo frito, plátano maduro y arepa.</p>
+        <p class="precio">$15.000</p>
+        <button onclick="agregarAlCarrito('Bandeja Paisa', 22000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/sancocho_gallina.png" alt="Sancocho de Gallina">
+        <h4>Sancocho de Gallina</h4>
+        <p>Con yuca, plátano, papa y gallina criolla. Tradición y sabor casero.</p>
+        <p class="precio">$20.000</p>
+        <button onclick="agregarAlCarrito('Sancocho de Gallina', 20000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/ajiaco.png" alt="Ajiaco Santafereño">
+        <h4>Ajiaco Santafereño</h4>
+        <p>Papa criolla, mazorca, pollo desmechado y alcaparras. Plato típico bogotano.</p>
+        <p class="precio">$20.000</p>
+        <button onclick="agregarAlCarrito('Ajiaco Santafereño', 20000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/tamales.png" alt="Tamales Tolimenses">
+        <h4>Tamales Tolimenses</h4>
+        <p>Masa de maíz con cerdo, pollo, zanahoria, arveja y huevo duro envueltos en hoja de plátano.</p>
+        <p class="precio">$18.000</p>
+        <button onclick="agregarAlCarrito('Tamales Tolimenses', 18000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/sudado_pollo.png" alt="Sudado de Pollo">
+        <h4>Sudado de Pollo</h4>
+        <p>Pollo guisado con papa, yuca y arroz. Sabor casero reconfortante.</p>
+        <p class="precio">$18.000</p>
+        <button onclick="agregarAlCarrito('Sudado de Pollo', 18000)">Agregar al carrito</button>
+      </div>
+
+      <div class="producto">
+        <img src="assets/img/sobrebarriga.png" alt="Sobrebarriga en Salsa">
+        <h4>Sobrebarriga en Salsa</h4>
+        <p>Corte de carne blanda en salsa criolla. Acompañado con arroz, papa y ensalada.</p>
+        <p class="precio">$22.000</p>
+        <button onclick="agregarAlCarrito('Sobrebarriga en Salsa', 22000)">Agregar al carrito</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de crear tu propio almuerzo -->
+  <section id="crear-comida" class="crear-comida">
+    <h2>Crea tu propio almuerzo $15.000</h2>
+
+    <form id="formPlatoPersonalizado">
+      <div class="grupo">
+        <label>Proteína:</label>
+        <select name="proteina" required>
+          <option value="">Selecciona</option>
+          <option value="Pollo">Pollo</option>
+          <option value="Carne de res">Carne de res</option>
+          <option value="Cerdo">Cerdo</option>
+          <option value="Pescado">Pescado</option>
+          <option value="Atún">Atún</option>
+          <option value="Garbanzos">Garbanzos</option>
+          <option value="Tofu">Tofu</option>
+          <option value="Queso">Queso</option>
+          <option value="Huevo">Huevo</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label>Carbohidrato:</label>
+        <select name="carbohidrato" required>
+          <option value="">Selecciona</option>
+          <option value="Arroz con coco">Arroz con coco</option>
+          <option value="Papa">Papa</option>
+          <option value="Arroz blanco">Arroz blanco</option>
+          <option value="Arroz integral">Arroz integral</option>
+          <option value="Pasta">Pasta</option>
+          <option value="Yuca">Yuca</option>
+          <option value="Plátano maduro">Plátano maduro</option>
+          <option value="Plátano verde">Plátano verde</option>
+          <option value="Maíz">Maíz</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label>Vegetales y Ensaladas:</label>
+        <select name="vegetales">
+          <option value="">Selecciona</option>
+          <option value="Zanahoria">Zanahoria</option>
+          <option value="Espinaca">Espinaca</option>
+          <option value="Lechuga">Lechuga</option>
+          <option value="Repollo morado">Repollo morado</option>
+          <option value="Pepino">Pepino</option>
+          <option value="Tomate">Tomate</option>
+          <option value="Aguacate">Aguacate</option>
+          <option value="Remolacha">Remolacha</option>
+          <option value="Ensalada mixta">Ensalada mixta</option>
+          <option value="Brócoli">Brócoli</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label>Extras:</label>
+        <select name="extras" id="extras">
+          <option value="">Selecciona</option>
+          <option value="Arepa">Arepa</option>
+          <option value="Salsas">Salsas</option>
+          <option value="Huevo cocido">Huevo cocido</option>
+          <option value="Chorizo">Chorizo</option>
+          <option value="Tajadas de plátano">Tajadas de plátano</option>
+          <option value="Queso rallado">Queso rallado</option>
+          <option value="Aguacate extra">Aguacate extra</option>
+          <option value="Tocineta crocante">Tocineta crocante</option>
+          <option value="Guacamole">Guacamole</option>
+          <option value="Ají casero">Ají casero</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label for="tipo-jugo"><strong>Tipo de jugo:</strong></label>
+        <select id="tipo-jugo" required>
+          <option value="Mango">Mango</option>
+          <option value="Fresa">Fresa</option>
+          <option value="Papaya">Papaya</option>
+          <option value="Banano">Banano</option>
+          <option value="Lulo">Lulo</option>
+          <option value="Guanábana">Guanábana</option>
+          <option value="Tomate de árbol">Tomate de árbol</option>
+          <option value="Piña">Piña</option>
+          <option value="Maracuyá">Maracuyá</option>
+          <option value="Sandía">Sandía</option>
+          <option value="Melón">Melón</option>
+          <option value="Uva">Uva</option>
+          <option value="Mora">Mora</option>
+          <option value="Naranja">Naranja</option>
+          <option value="Mandarina">Mandarina</option>
+          <option value="Ninguno">Ninguno</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label for="base-jugo"><strong>Base:</strong></label>
+        <select id="base-jugo" required>
+          <option value="Con agua">Con agua</option>
+          <option value="Con leche">Con leche</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label for="azucar-jugo"><strong>¿Con azúcar?</strong></label>
+        <select id="azucar-jugo" required>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <button id="enviarPersonalizado" class="btn btn-success">Enviar pedido personalizado</button>
+    </form>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <h2>Contáctanos</h2>
+    <p>Escríbenos por nuestras redes sociales o al WhatsApp.</p>
+  </section>
+
+  <!-- Botones flotantes -->
+  <div class="social-buttons">
+    <a href="https://wa.me/573233670402" class="btn-social whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://facebook.com/natursopas" class="btn-social facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://instagram.com/natursopas" class="btn-social instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://tiktok.com/@natursopas" class="btn-social tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://youtube.com/@natursopas" class="btn-social youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+
+  <!-- Carrito -->
+  <button id="openCart" class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+  <div id="cart" class="cart hidden">
+    <h3>🛒 Tu carrito</h3>
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Total: $0</p>
+    <button id="hacerPedido">Hacer pedido</button>
+    <button id="closeCart">Cerrar</button>
+  </div>
+
+  <script>
+    document.getElementById("enviarPersonalizado").addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const proteina = document.querySelector("select[name='proteina']").value;
+      const carbohidrato = document.querySelector("select[name='carbohidrato']").value;
+      const vegetales = document.querySelector("select[name='vegetales']").value;
+      const extras = document.getElementById("extras").value;
+      const tipoJugo = document.getElementById("tipo-jugo").value;
+      const baseJugo = document.getElementById("base-jugo").value;
+      const azucarJugo = document.getElementById("azucar-jugo").value;
+
+      // Validación
+      if (!proteina || !carbohidrato || !vegetales || !extras || !tipoJugo || !baseJugo || !azucarJugo) {
+        alert("Por favor completa todos los campos del almuerzo personalizado.");
+        return;
+      }
+
+      const detalles = `Proteína: ${proteina}, Carbohidrato: ${carbohidrato}, Vegetales: ${vegetales}, Extras: ${extras}, Jugo: ${tipoJugo} (${baseJugo}, Azúcar: ${azucarJugo})`;
+
+      const pedidoPersonalizado = {
+        nombre: "Almuerzo Personalizado",
+        cantidad: 1,
+        total: 15000,
+        detalles: detalles
+      };
+
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      carrito.push(pedidoPersonalizado);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+
+      window.location.href = "pedido.html";
+    });
+
+    // Funcionalidad del carrito
+    document.getElementById('openCart').addEventListener('click', function() {
+      document.getElementById('cart').classList.toggle('visible');
+    });
+
+    document.getElementById('closeCart').addEventListener('click', function() {
+      document.getElementById('cart').classList.remove('visible');
+    });
+
+    function agregarAlCarrito(nombre, precio) {
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      
+      // Verificar si el producto ya está en el carrito
+      const productoExistente = carrito.find(item => item.nombre === nombre);
+      
+      if (productoExistente) {
+        productoExistente.cantidad += 1;
+        productoExistente.total = productoExistente.cantidad * (productoExistente.total / productoExistente.cantidad);
+      } else {
+        carrito.push({
+          nombre: nombre,
+          cantidad: 1,
+          total: precio,
+          detalles: ''
+        });
+      }
+      
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      actualizarCarrito();
+      document.getElementById('cart').classList.add('visible');
+    }
+
+    function actualizarCarrito() {
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      
+      cartItems.innerHTML = '';
+      let total = 0;
+      
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.nombre} x${item.cantidad} - $${item.total.toLocaleString()}
+          <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">X</button>
+        `;
+        cartItems.appendChild(li);
+        total += item.total;
+      });
+      
+      cartTotal.textContent = `Total: $${total.toLocaleString()}`;
+    }
+
+    function eliminarDelCarrito(index) {
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      carrito.splice(index, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    // Redirección al hacer pedido
+    document.getElementById('hacerPedido').addEventListener('click', function() {
+      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      
+      if (carrito.length === 0) {
+        alert("Tu carrito está vacío. Agrega productos antes de continuar.");
+        return;
+      }
+      
+      window.location.href = "pedido.html";
+    });
+
+    // Inicializar carrito al cargar la página
+    document.addEventListener('DOMContentLoaded', actualizarCarrito);
+  </script>
+</body>
+</html>
